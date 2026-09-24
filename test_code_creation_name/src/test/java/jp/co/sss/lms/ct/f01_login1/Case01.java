@@ -90,8 +90,7 @@ public class Case01 {
 
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 
-		takeScreenshot("case1_login_page");
-
+		takeScreenshot("case1_test1_login_page");
 	}
 
 }

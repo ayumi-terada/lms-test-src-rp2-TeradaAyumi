@@ -88,13 +88,8 @@ public class Case02 {
 	void test01() {
 		webDriver.get("http://localhost:" + port + "/lms/");
 
-		webDriver.findElement(By.id("loginId")).sendKeys("StudentAA01");
-		webDriver.findElement(By.id("password")).sendKeys("StudentAA01");
-
-		webDriver.findElement(By.className("btn-primary")).click();
-
 		assertEquals("ログイン | LMS", webDriver.getTitle());
-		takeScreenshot("case2_login_page");
+		takeScreenshot("case2_test1_login_page");
 	}
 
 	@Test
@@ -111,7 +106,7 @@ public class Case02 {
 		WebElement errorMsg = webDriver.findElement(By.className("help-inline"));
 		assertTrue(errorMsg.isDisplayed(), "エラーメッセージが表示されること");
 
-		takeScreenshot("case2_login_failed_error");
+		takeScreenshot("case2_test2_login_error_page");
 
 	}
 
