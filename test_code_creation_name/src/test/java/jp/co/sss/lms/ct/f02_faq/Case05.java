@@ -132,7 +132,6 @@ public class Case05 {
 	@Order(5)
 	@DisplayName("テスト05 キーワード検索で該当キーワードを含む検索結果だけ表示")
 	void test05() {
-
 		//検索欄にキーワード入力
 		WebElement searchBox = webDriver.findElement(By.name("keyword"));
 		searchBox.sendKeys("研修");
