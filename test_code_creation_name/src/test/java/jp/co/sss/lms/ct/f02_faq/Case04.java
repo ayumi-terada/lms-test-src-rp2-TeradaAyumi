@@ -4,7 +4,6 @@ import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-import java.time.Duration;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -93,6 +92,9 @@ public class Case04 {
 		WebElement helpButton = webDriver.findElement(By.linkText("ヘルプ"));
 		helpButton.click();
 
+		//画面が表示されるまで5秒待機
+		visibilityTimeout(By.tagName("h2"), 5);
+
 		//タイトルとURLが正しいか検証		
 		assertEquals("ヘルプ | LMS", webDriver.getTitle());
 		assertEquals("http://localhost:8080/lms/help", webDriver.getCurrentUrl());
@@ -112,13 +114,13 @@ public class Case04 {
 		WebElement faq = webDriver.findElement(By.linkText("よくある質問"));
 		faq.click();
 
-		//ページ読み込み完了を待機
-		webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-
 		//最新のタブへ切り替える
 		for (String windowHandle : webDriver.getWindowHandles()) {
 			webDriver.switchTo().window(windowHandle);
 		}
+
+		//画面が表示されるまで5秒待機
+		visibilityTimeout(By.tagName("h2"), 5);
 
 		//タイトルとURLが正しいか検証する
 		assertEquals("よくある質問 | LMS", webDriver.getTitle());
