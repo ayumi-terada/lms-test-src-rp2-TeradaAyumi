@@ -70,6 +70,9 @@ public class Case03 {
 		//ログインボタンを押す
 		webDriver.findElement(By.className("btn-primary")).click();
 
+		//画面が表示されるまで5秒待機
+		visibilityTimeout(By.tagName("h2"), 5);
+
 		//タイトルとURLが正しいか検証
 		assertEquals("コース詳細 | LMS", webDriver.getTitle());
 		assertEquals("http://localhost:8080/lms/course/detail", webDriver.getCurrentUrl());
