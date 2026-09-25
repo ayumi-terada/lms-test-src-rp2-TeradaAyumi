@@ -49,7 +49,7 @@ public class Case02 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		//ログイン画面のURLに遷移する
-		webDriver.get("http://localhost:8080/lms/");
+		goTo("http://localhost:8080/lms/");
 
 		//タイトルとURLが正しいか検証する
 		assertEquals("ログイン | LMS", webDriver.getTitle());
@@ -72,11 +72,10 @@ public class Case02 {
 		//ログインボタンを押す
 		webDriver.findElement(By.className("btn-primary")).click();
 
-		//エラーメッセージのを取得する
-		WebElement errorMsg = webDriver.findElement(By.className("help-inline"));
-
 		//エラーメッセージが表示されているか検証する
-		assertTrue(errorMsg.isDisplayed());
+
+		WebElement loginError = webDriver.findElement(By.cssSelector(".error"));
+		assertEquals("* ログインに失敗しました。", loginError.getText());
 
 		//test2のエビデンスを取得する
 		getEvidence(new Object() {

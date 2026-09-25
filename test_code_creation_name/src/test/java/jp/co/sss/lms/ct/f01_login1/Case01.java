@@ -49,7 +49,7 @@ public class Case01 {
 	void test01() {
 
 		//ログイン画面のURLに遷移する
-		webDriver.get("http://localhost:8080/lms/");
+		goTo("http://localhost:8080/lms/");
 
 		//タイトルとURLが正しいか検証する
 		assertEquals("ログイン | LMS", webDriver.getTitle());
