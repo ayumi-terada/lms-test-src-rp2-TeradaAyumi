@@ -144,6 +144,9 @@ public class Case05 {
 		//URL内にキーワードが含まれているか検証
 		assertTrue(webDriver.getCurrentUrl().contains("keyword="));
 
+		//スクリーンショットに結果を残すため
+		scrollBy("250");
+
 		//test5のエビデンスを取得する
 		getEvidence(new Object() {
 		});
@@ -153,6 +156,9 @@ public class Case05 {
 	@Order(6)
 	@DisplayName("テスト06 「クリア」ボタン押下で入力したキーワードを消去")
 	void test06() {
+		//画面をもとの位置に戻す
+		scrollTo("0");
+
 		//クリアボタンを押す
 		WebElement clearButton = webDriver.findElement(By.cssSelector("input[value='クリア']"));
 		clearButton.click();
@@ -160,6 +166,9 @@ public class Case05 {
 		//検索欄がクリアになっているか検証
 		WebElement searchBoxCheck = webDriver.findElement(By.id("form"));
 		assertEquals("", searchBoxCheck.getAttribute("value"));
+
+		//画面をもとの位置に戻す
+		scrollTo("0");
 
 		//test6のエビデンスを取得する
 		getEvidence(new Object() {
