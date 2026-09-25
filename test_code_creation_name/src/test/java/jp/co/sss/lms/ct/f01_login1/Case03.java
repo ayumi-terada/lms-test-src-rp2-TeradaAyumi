@@ -47,9 +47,9 @@ public class Case03 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		//ログイン画面のURLに遷移する
-		webDriver.get("http://localhost:8080/lms/");
+		goTo("http://localhost:8080/lms/");
 
-		//タイトルとURLが正しいか検証する
+		//タイトルとURLが正しいか検証
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
 
@@ -67,10 +67,10 @@ public class Case03 {
 		webDriver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 		webDriver.findElement(By.id("password")).sendKeys("Password12345");
 
-		//ログインボタンを押すr
+		//ログインボタンを押す
 		webDriver.findElement(By.className("btn-primary")).click();
 
-		//タイトルとURLが正しいか検証する
+		//タイトルとURLが正しいか検証
 		assertEquals("コース詳細 | LMS", webDriver.getTitle());
 		assertEquals("http://localhost:8080/lms/course/detail", webDriver.getCurrentUrl());
 

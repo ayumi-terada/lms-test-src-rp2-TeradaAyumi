@@ -4,6 +4,7 @@ import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.time.Duration;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -47,7 +48,7 @@ public class Case04 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		//ログイン画面のURLに遷移する
-		webDriver.get("http://localhost:8080/lms/");
+		goTo("http://localhost:8080/lms/");
 
 		//タイトルとURLが正しいか検証する
 		assertEquals("ログイン | LMS", webDriver.getTitle());
@@ -67,10 +68,10 @@ public class Case04 {
 		webDriver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 		webDriver.findElement(By.id("password")).sendKeys("Password12345");
 
-		//ログインボタンを押すr
+		//ログインボタンを押す
 		webDriver.findElement(By.className("btn-primary")).click();
 
-		//タイトルとURLが正しいか検証する
+		//タイトルとURLが正しいか検証
 		assertEquals("コース詳細 | LMS", webDriver.getTitle());
 		assertEquals("http://localhost:8080/lms/course/detail", webDriver.getCurrentUrl());
 
@@ -85,14 +86,14 @@ public class Case04 {
 	void test03() {
 
 		//ヘッダーの「機能」ボタンを押す
-		WebElement headerMenu = webDriver.findElement(By.className("caret"));
+		WebElement headerMenu = webDriver.findElement(By.linkText("機能"));
 		headerMenu.click();
 
 		//「ヘルプ」ボタンを押す
-		WebElement helpButton = webDriver.findElement(By.cssSelector("a[href*='/help']"));
+		WebElement helpButton = webDriver.findElement(By.linkText("ヘルプ"));
 		helpButton.click();
 
-		//タイトルとURLが正しいか検証する		
+		//タイトルとURLが正しいか検証		
 		assertEquals("ヘルプ | LMS", webDriver.getTitle());
 		assertEquals("http://localhost:8080/lms/help", webDriver.getCurrentUrl());
 
@@ -111,9 +112,12 @@ public class Case04 {
 		WebElement faq = webDriver.findElement(By.linkText("よくある質問"));
 		faq.click();
 
-		//新しいタブを開く
-		for (String windowHandleString : webDriver.getWindowHandles()) {
-			webDriver.switchTo().window(windowHandleString);
+		//ページ読み込み完了を待機
+		webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+
+		//最新のタブへ切り替える
+		for (String windowHandle : webDriver.getWindowHandles()) {
+			webDriver.switchTo().window(windowHandle);
 		}
 
 		//タイトルとURLが正しいか検証する

@@ -51,7 +51,7 @@ public class Case02 {
 		//ログイン画面のURLに遷移する
 		goTo("http://localhost:8080/lms/");
 
-		//タイトルとURLが正しいか検証する
+		//タイトルとURLが正しいか検証
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
 
@@ -72,8 +72,7 @@ public class Case02 {
 		//ログインボタンを押す
 		webDriver.findElement(By.className("btn-primary")).click();
 
-		//エラーメッセージが表示されているか検証する
-
+		//エラーメッセージが表示されているか検証
 		WebElement loginError = webDriver.findElement(By.cssSelector(".error"));
 		assertEquals("* ログインに失敗しました。", loginError.getText());
 
