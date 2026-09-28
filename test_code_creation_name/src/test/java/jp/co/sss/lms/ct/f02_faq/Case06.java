@@ -132,18 +132,14 @@ public class Case06 {
 	@Order(5)
 	@DisplayName("テスト05 カテゴリ検索で該当カテゴリの検索結果だけ表示")
 	void test05() {
-		//検索欄にキーワード入力
-		WebElement searchBox = webDriver.findElement(By.name("keyword"));
-		searchBox.sendKeys("研修");
+		//カテゴリー検索をクリック
+		WebElement categorySearch = webDriver.findElement(By.linkText("【研修関係】"));
+		categorySearch.click();
 
-		//検索ボタンを押す
-		WebElement searchButton = webDriver.findElement(By.cssSelector("input[value='検索']"));
-		searchButton.click();
+		//カテゴリー検索の結果が表示されているか検証
+		assertTrue(webDriver.getCurrentUrl().contains("frequentlyAskedQuestionCategoryId="));
 
-		//URL内にキーワードが含まれているか検証
-		assertTrue(webDriver.getCurrentUrl().contains("keyword="));
-
-		//スクリーンショットに結果を残すため
+		//スクリーンショットに結果を残すためスクロール
 		scrollBy("250");
 
 		//test5のエビデンスを取得する
@@ -155,7 +151,7 @@ public class Case06 {
 	@Order(6)
 	@DisplayName("テスト06 検索結果の質問をクリックしその回答を表示")
 	void test06() {
-		//検索結果を押す
+		//検索結果のバーを押す
 		WebElement toggleAnswer = webDriver.findElement(By.cssSelector("[id^=question-h]"));
 		toggleAnswer.click();
 
