@@ -3,6 +3,8 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -142,6 +144,11 @@ public class Case05 {
 
 		//URL内にキーワードが含まれているか検証
 		assertTrue(webDriver.getCurrentUrl().contains("keyword="));
+
+		//検索結果の質問が表示されているか検証
+		List<WebElement> questions = webDriver.findElements(By.cssSelector("dl dt"));
+		assertEquals("Q.助成金書類の作成方法が分かりません", questions.get(0).getText());
+		assertEquals("Q.研修の申し込みはどのようにすれば良いですか？", questions.get(1).getText());
 
 		//スクリーンショットに結果を残すため
 		scrollBy("250");

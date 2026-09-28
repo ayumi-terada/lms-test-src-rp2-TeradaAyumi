@@ -3,6 +3,8 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -136,8 +138,13 @@ public class Case06 {
 		WebElement categorySearch = webDriver.findElement(By.linkText("【研修関係】"));
 		categorySearch.click();
 
-		//カテゴリー検索の結果が表示されているか検証
+		//カテゴリー検索の結果が表示されているかURLで検証
 		assertTrue(webDriver.getCurrentUrl().contains("frequentlyAskedQuestionCategoryId="));
+
+		//検索結果の質問が表示されているか検証
+		List<WebElement> questions = webDriver.findElements(By.cssSelector("dl dt"));
+		assertEquals("Q.キャンセル料・途中退校について", questions.get(0).getText());
+		assertEquals("Q.研修の申し込みはどのようにすれば良いですか？", questions.get(1).getText());
 
 		//スクリーンショットに結果を残すためスクロール
 		scrollBy("250");
