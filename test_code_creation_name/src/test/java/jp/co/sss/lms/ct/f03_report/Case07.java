@@ -93,9 +93,11 @@ public class Case07 {
 
 			//もし未提出の文字がある場合
 			if (row.getText().contains("未提出")) {
+
 				//詳細ボタンを押す
 				WebElement detailButton = row.findElement(By.cssSelector("input[value='詳細']"));
 				detailButton.click();
+
 				//処理を終了
 				break;
 			}
@@ -137,7 +139,30 @@ public class Case07 {
 	@Order(5)
 	@DisplayName("テスト05 報告内容を入力して「提出する」ボタンを押下し確認ボタン名が更新される")
 	void test05() {
-		WebElement submit = webDriver.findElement(By.className("btn-primary"));
+		//テキストボックスに入力する
+		WebElement dailyReport = webDriver.findElement(By.cssSelector("div textarea"));
+		dailyReport.sendKeys("日報を提出");
+
+		//提出ボタンを押す
+		WebElement dailyReportSubmit = webDriver.findElement(By.cssSelector("button[type='submit']"));
+		dailyReportSubmit.click();
+
+		//画面が表示されるまで5秒待機
+		visibilityTimeout(By.tagName("h2"), 5);
+
+		//タイトルとURLが正しいか検証する
+		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
+		assertTrue(webDriver.getCurrentUrl().contains("http://localhost:8080/lms/section/detail"));
+
+		//提出済みボタン・htmlで表示されている文字列を取得する
+		WebElement submited = webDriver.findElement(By.cssSelector("input[value^='提出済み']"));
+		String buttonTextString = submited.getAttribute("value");
+		//ボタンが変化しているか検証する
+		assertTrue(buttonTextString.contains("提出済み"));
+
+		//test5のエビデンスを取得する
+		getEvidence(new Object() {
+		});
 
 	}
 

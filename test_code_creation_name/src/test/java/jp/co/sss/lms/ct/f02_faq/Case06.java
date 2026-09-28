@@ -134,14 +134,14 @@ public class Case06 {
 	@Order(5)
 	@DisplayName("テスト05 カテゴリ検索で該当カテゴリの検索結果だけ表示")
 	void test05() {
-		//カテゴリー検索をクリック
+		//カテゴリー検索を押す
 		WebElement categorySearch = webDriver.findElement(By.linkText("【研修関係】"));
 		categorySearch.click();
 
-		//カテゴリー検索の結果が表示されているかURLで検証
+		//カテゴリー検索の結果が表示されているかURLで検証する
 		assertTrue(webDriver.getCurrentUrl().contains("frequentlyAskedQuestionCategoryId="));
 
-		//検索結果の質問が表示されているか検証
+		//検索結果の質問が表示されているか検証する
 		List<WebElement> questions = webDriver.findElements(By.cssSelector("dl dt"));
 		assertEquals("Q.キャンセル料・途中退校について", questions.get(0).getText());
 		assertEquals("Q.研修の申し込みはどのようにすれば良いですか？", questions.get(1).getText());
@@ -162,7 +162,7 @@ public class Case06 {
 		WebElement toggleAnswer = webDriver.findElement(By.cssSelector("[id^=question-h]"));
 		toggleAnswer.click();
 
-		//検索結果が表示されているか検証
+		//検索結果が表示されているか検証する
 		WebElement answer = webDriver.findElement(By.cssSelector("[id^=answer-h]"));
 		assertTrue(answer.isDisplayed());
 
