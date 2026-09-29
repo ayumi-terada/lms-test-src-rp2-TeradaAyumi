@@ -114,7 +114,7 @@ public class Case08 {
 	@Order(4)
 	@DisplayName("テスト04 「確認する」ボタンを押下しレポート登録画面に遷移")
 	void test04() {
-
+		//編集のために画面を下へ移動
 		scrollBy("150");
 
 		//提出ボタンを押す
@@ -137,7 +137,7 @@ public class Case08 {
 	@Order(5)
 	@DisplayName("テスト05 報告内容を修正して「提出する」ボタンを押下しセクション詳細画面に遷移")
 	void test05() {
-		//編集のために画面を下へ
+		//編集のために画面を下へ移動
 		scrollBy("300");
 
 		//所感の内容をクリアにして再入力
@@ -168,7 +168,7 @@ public class Case08 {
 	@Order(6)
 	@DisplayName("テスト06 上部メニューの「ようこそ○○さん」リンクからユーザー詳細画面に遷移")
 	void test06() {
-		//ユーザーボタンを押す
+		//ユーザー詳細ボタンを押す
 		WebElement userDate = webDriver.findElement(By.partialLinkText("ようこそ"));
 		userDate.click();
 
