@@ -39,7 +39,9 @@
 					<legend>報告レポート</legend>
 					<div th:each="fieldName, stat : *{fieldNameArray}" class="form-group">
 						<label class="col-lg-2 control-label">
+							<!--それぞれのボックスの項目名-->
 							[[${fieldName}]] 
+						
 							<span th:if="*{requiredFlgArray[__${stat.index}__]} == '1'"> <br /> 
 							<strong class="text-caution"><font size="2">[必須]</font></strong>
 						</span>
