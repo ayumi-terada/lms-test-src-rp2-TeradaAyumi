@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
 /**
  * 結合テスト ログイン機能①
@@ -26,9 +25,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("ケース03 受講生 ログイン 正常系")
 public class Case03 {
-
-	@LocalServerPort
-	private int port;
 
 	/** 前処理 */
 	@BeforeAll

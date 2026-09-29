@@ -15,7 +15,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
 /**
  * 結合テスト よくある質問機能
@@ -26,9 +25,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("ケース04 よくある質問画面への遷移")
 public class Case04 {
-
-	@LocalServerPort
-	private int port;
 
 	/** 前処理 */
 	@BeforeAll

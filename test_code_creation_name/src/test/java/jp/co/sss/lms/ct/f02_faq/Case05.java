@@ -15,7 +15,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
 /**
  * 結合テスト よくある質問機能
@@ -26,9 +25,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("ケース05 キーワード検索 正常系")
 public class Case05 {
-
-	@LocalServerPort
-	private int port;
 
 	/** 前処理 */
 	@BeforeAll

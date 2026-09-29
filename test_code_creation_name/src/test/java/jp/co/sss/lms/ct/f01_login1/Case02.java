@@ -15,7 +15,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
 /**
  * 結合テスト ログイン機能①
@@ -27,9 +26,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("ケース02 受講生 ログイン 認証失敗")
 public class Case02 {
-
-	@LocalServerPort
-	private int port;
 
 	/** 前処理 
 	 * @throws IOException */

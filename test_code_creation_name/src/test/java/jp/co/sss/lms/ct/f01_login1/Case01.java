@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
 /**
  * 結合テスト ログイン機能①
@@ -24,11 +23,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("ケース01 ログイン画面への遷移")
 public class Case01 {
-
-	@LocalServerPort
-	private int port;
-
-	//private static final String SCREENSHOT_DIR = "./evidence/";
 
 	/** 前処理 
 	 * @throws IOException */
