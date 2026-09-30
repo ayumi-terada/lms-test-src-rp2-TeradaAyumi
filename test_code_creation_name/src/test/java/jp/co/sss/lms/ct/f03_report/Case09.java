@@ -65,7 +65,7 @@ public class Case09 {
 		webDriver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 		webDriver.findElement(By.id("password")).sendKeys("Password12345");
 
-		//ログインボタンを押すr
+		//ログインボタンを押す
 		webDriver.findElement(By.className("btn-primary")).click();
 
 		//画面が表示されるまで5秒待機
