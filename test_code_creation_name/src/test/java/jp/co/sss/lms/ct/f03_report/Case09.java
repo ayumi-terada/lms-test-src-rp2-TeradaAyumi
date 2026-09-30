@@ -16,7 +16,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
 /**
  * 結合テスト レポート機能
@@ -28,8 +27,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 @DisplayName("ケース09 受講生 レポート登録 入力チェック")
 public class Case09 {
 
-	@LocalServerPort
-	private int port;
+	final String text = "あ".repeat(2001);
 
 	/** 前処理 */
 	@BeforeAll
@@ -87,14 +85,13 @@ public class Case09 {
 	@DisplayName("テスト03 上部メニューの「ようこそ○○さん」リンクからユーザー詳細画面に遷移")
 	void test03() {
 		//ユーザー詳細ボタンを押す
-		WebElement userDate = webDriver.findElement(By.partialLinkText("ようこそ"));
-		userDate.click();
+		webDriver.findElement(By.partialLinkText("ようこそ")).click();
 
 		//タイトルとURLが正しいか検証する
 		assertEquals("ユーザー詳細", webDriver.getTitle());
 		assertTrue(webDriver.getCurrentUrl().contains("http://localhost:8080/lms/user/detail"));
 
-		//test6のエビデンスを取得する
+		//test3のエビデンスを取得する
 		getEvidence(new Object() {
 		});
 	}
@@ -106,19 +103,18 @@ public class Case09 {
 		//テーブルを取得してリストに入れる
 		List<WebElement> sectionRows = webDriver.findElements(By.cssSelector("table.table-hover tr"));
 
-		//編集のために画面を下へ移動
+		//編集のために画面をスクロール
 		scrollBy("400");
 
-		//1行ずつ確認
+		//1行ずつ条件を確認する
 		for (WebElement row : sectionRows) {
 			String rowText = row.getText();
 
 			//"週報"と"2022年10月2日"を含む列がある場合
 			if (row.getText().contains("週報") && row.getText().contains("2022年10月2日")) {
 
-				//詳細ボタンを押す
-				WebElement detailButton = row.findElement(By.cssSelector("input[value='修正する']"));
-				detailButton.click();
+				//修正するボタンを押す
+				row.findElement(By.cssSelector("input[value='修正する']")).click();
 
 				//処理を終了
 				break;
@@ -131,7 +127,7 @@ public class Case09 {
 		assertEquals("レポート登録 | LMS", webDriver.getTitle());
 		assertEquals("http://localhost:8080/lms/report/regist", webDriver.getCurrentUrl());
 
-		//test7のエビデンスを取得する
+		//test4のエビデンスを取得する
 		getEvidence(new Object() {
 		});
 	}
@@ -144,17 +140,16 @@ public class Case09 {
 		WebElement learningBox = webDriver.findElement(By.id("intFieldName_0"));
 		learningBox.clear();
 
-		//編集のために画面を下へ移動
-		scrollBy("400");
+		//編集のために画面をスクロール
+		scrollBy("300");
 
 		//提出ボタンを押す
-		WebElement weekReportSubmit = webDriver.findElement(By.cssSelector("button[type='submit']"));
-		weekReportSubmit.click();
+		webDriver.findElement(By.cssSelector("button[type='submit']")).click();
 
 		//画面が表示されるまで5秒待機
 		visibilityTimeout(By.tagName("h2"), 5);
 
-		//エラーの表示確認
+		//エラーの表示を確認する
 		WebElement error = webDriver.findElement(By.cssSelector(".form-control.errorInput"));
 		assertTrue(error.isDisplayed());
 
@@ -168,28 +163,27 @@ public class Case09 {
 	@Order(6)
 	@DisplayName("テスト06 不適切な内容で修正して「提出する」ボタンを押下しエラー表示：理解度が未入力")
 	void test06() {
-		//学習項目を未入力状態にする
+		//学習項目を初期値に戻す
 		WebElement learningBox = webDriver.findElement(By.id("intFieldName_0"));
 		learningBox.sendKeys("ITリテラシー①");
-		//学習項目を未入力状態にする
 
+		//学習理解度を未入力状態にする
 		new Select(webDriver.findElement(By.id("intFieldValue_0"))).selectByIndex(0);
 
-		//編集のために画面を下へ移動
-		scrollBy("400");
+		//編集のために画面をスクロール
+		scrollBy("300");
 
 		//提出ボタンを押す
-		WebElement weekReportSubmit = webDriver.findElement(By.cssSelector("button[type='submit']"));
-		weekReportSubmit.click();
+		webDriver.findElement(By.cssSelector("button[type='submit']")).click();
 
 		//画面が表示されるまで5秒待機
 		visibilityTimeout(By.tagName("h2"), 5);
 
-		//エラーの表示確認
+		//エラーの表示を確認する
 		WebElement error = webDriver.findElement(By.cssSelector(".form-control.errorInput"));
 		assertTrue(error.isDisplayed());
 
-		//test2のエビデンスを取得する
+		//test6のエビデンスを取得する
 		getEvidence(new Object() {
 		});
 	}
@@ -198,28 +192,128 @@ public class Case09 {
 	@Order(7)
 	@DisplayName("テスト07 不適切な内容で修正して「提出する」ボタンを押下しエラー表示：目標の達成度が数値以外")
 	void test07() {
-		// TODO ここに追加
+		//学習項目を初期値に戻す
+		new Select(webDriver.findElement(By.id("intFieldValue_0"))).selectByIndex(2);
+
+		//編集のために画面をスクロール
+		scrollBy("300");
+
+		//目標の達成度に半角数字以外の値を入力する
+		WebElement goalAchievement = webDriver.findElement(By.id("content_0"));
+		goalAchievement.clear();
+		goalAchievement.sendKeys("目標達成！");
+
+		//提出ボタンを押す
+		webDriver.findElement(By.cssSelector("button[type='submit']")).click();
+
+		//画面が表示されるまで5秒待機
+		visibilityTimeout(By.tagName("h2"), 5);
+
+		//エラーの表示を確認する
+		WebElement error = webDriver.findElement(By.cssSelector(".form-control.errorInput"));
+		assertTrue(error.isDisplayed());
+
+		//test7のエビデンスを取得する
+		getEvidence(new Object() {
+		});
+
 	}
 
 	@Test
 	@Order(8)
 	@DisplayName("テスト08 不適切な内容で修正して「提出する」ボタンを押下しエラー表示：目標の達成度が範囲外")
 	void test08() {
-		// TODO ここに追加
+		//編集のために画面をスクロール
+		scrollBy("300");
+
+		//目標の達成度を未入力状態にする
+		WebElement goalAchievement = webDriver.findElement(By.id("content_0"));
+		goalAchievement.clear();
+		goalAchievement.sendKeys("13");
+
+		//提出ボタンを押す
+		webDriver.findElement(By.cssSelector("button[type='submit']")).click();
+
+		//画面が表示されるまで5秒待機
+		visibilityTimeout(By.tagName("h2"), 5);
+
+		//エラーの表示を確認する
+		WebElement error = webDriver.findElement(By.cssSelector(".form-control.errorInput"));
+		assertTrue(error.isDisplayed());
+
+		//test8のエビデンスを取得する
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(9)
 	@DisplayName("テスト09 不適切な内容で修正して「提出する」ボタンを押下しエラー表示：目標の達成度・所感が未入力")
 	void test09() {
-		// TODO ここに追加
+		//編集のために画面をスクロール
+		scrollBy("300");
+
+		//目標達成度を未入力状態にする
+		WebElement goalAchievement = webDriver.findElement(By.id("content_0"));
+		goalAchievement.clear();
+
+		//所感を未入力状態にする
+		WebElement impressions = webDriver.findElement(By.id("content_1"));
+		impressions.clear();
+
+		//提出ボタンを押す
+		webDriver.findElement(By.cssSelector("button[type='submit']")).click();
+
+		//画面が表示されるまで5秒待機
+		visibilityTimeout(By.tagName("h2"), 5);
+
+		//スクリーンショットに結果を残すためスクロール
+		scrollBy("300");
+
+		//エラーの表示を確認する
+		WebElement error = webDriver.findElement(By.cssSelector(".form-control.errorInput"));
+		assertTrue(error.isDisplayed());
+
+		//test9のエビデンスを取得する
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(10)
 	@DisplayName("テスト10 不適切な内容で修正して「提出する」ボタンを押下しエラー表示：所感・一週間の振り返りが2000文字超")
 	void test10() {
-		// TODO ここに追加
-	}
+		//編集のために画面をスクロール
+		scrollBy("300");
 
+		//目標達成度を初期値に戻す
+		WebElement goalAchievement = webDriver.findElement(By.id("content_0"));
+		goalAchievement.sendKeys("5");
+
+		//所感に2001文字入力する
+		WebElement impressions = webDriver.findElement(By.id("content_1"));
+		impressions.sendKeys(text);
+
+		//一週間の振り返りに2001文字に入力する
+		WebElement weeklyReview = webDriver.findElement(By.id("content_2"));
+		weeklyReview.clear();
+		weeklyReview.sendKeys(text);
+
+		//提出ボタンを押す
+		webDriver.findElement(By.cssSelector("button[type='submit']")).click();
+
+		//画面が表示されるまで5秒待機
+		visibilityTimeout(By.tagName("h2"), 5);
+
+		//スクリーンショットに結果を残すためスクロール
+		scrollBy("300");
+
+		//エラーの表示を確認する
+		WebElement error = webDriver.findElement(By.cssSelector(".form-control.errorInput"));
+		assertTrue(error.isDisplayed());
+
+		//test10のエビデンスを取得する
+		getEvidence(new Object() {
+		});
+	}
 }
